@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Fruitables</title>
+    <title>MyFruit - Về Chúng Tôi</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
@@ -26,12 +27,12 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="goto-here">
-    <jsp:include page="layout/nav.jsp"></jsp:include>
+    <jsp:include page="./layout/nav.jsp"></jsp:include>
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
-                    <p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Trang Chủ</a></span> <span>Về Chúng Tôi</span></p>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="home">Trang Chủ</a></span> <span>Về Chúng Tôi</span></p>
                     <h1 class="mb-0 bread">Về Chúng Tôi</h1>
                 </div>
             </div>
@@ -46,12 +47,15 @@
                 <div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
                     <div class="heading-section-bold mb-4 mt-md-5">
                         <div class="ml-md-0">
-                            <h2 class="mb-4">Fruitables</h2>
+                            <h2 class="mb-4">MyFruit</h2>
                         </div>
                     </div>
                     <div class="pb-md-5">
-                        <p>Chào mừng đến với Fruitables - điểm đến lý tưởng cho những người yêu thực phẩm sạch và tươi ngon! Chúng tôi tự hào là địa chỉ đáng tin cậy cho việc mua sắm trực tuyến các loại rau củ, trái cây tươi ngon, nước ép tươi mát và thực phẩm khô hấp dẫn. Với cam kết về chất lượng và nguồn gốc sản phẩm, chúng tôi mang đến cho bạn những lựa chọn hoàn hảo để tạo ra những bữa ăn ngon và cân đối hơn cho cuộc sống hàng ngày của bạn. Hãy khám phá sự phong phú và đa dạng của thế giới thực phẩm tại Fruitables, và bắt đầu hành trình tìm kiếm sức khỏe và sự thăng hoa từng giọt nước ép, mỗi lát rau, và mỗi miếng trái cây tươi ngon</p>
-                        <p><a href="product.jsp" class="btn btn-primary">Khám Phá Ngay</a></p>
+                        <p>MyFruit - nơi bạn có thể khám phá vô vàn loại trái cây tươi ngon từ các vùng miền của đất nước.
+                            Với cam kết mang lại sản phẩm chất lượng nhất từ vườn đến bàn của bạn,
+                            chúng tôi tự hào là điểm đến đáng tin cậy cho những người yêu thích hương vị tự nhiên và dinh dưỡng của trái cây.
+                            Hãy đồng hành cùng chúng tôi trên hành trình tìm kiếm sức khỏe và sự hài lòng trong mỗi quả trái bạn chọn.</p>
+                        <p><a href="product" class="btn btn-primary">Khám Phá Ngay</a></p>
                     </div>
                 </div>
             </div>
@@ -68,7 +72,7 @@
                         </div>
                         <div class="media-body">
                             <h3 class="heading">Miễn Phí Vận Chuyển</h3>
-                            <span>Miễn phí vận chuyển mọi đơn hàng</span>
+                            <span>Đơn hàng trên 500k</span>
                         </div>
                     </div>
                 </div>
@@ -78,7 +82,7 @@
                             <span class="flaticon-diet"></span>
                         </div>
                         <div class="media-body">
-                            <h3 class="heading">Thực Phẩm Tươi</h3>
+                            <h3 class="heading">Trái Cây Tươi</h3>
                             <span>Đóng gói sản phẩm cẩn thận</span>
                         </div>
                     </div>
@@ -108,8 +112,8 @@
             </div>
         </div>
     </section>
-    <jsp:include page="layout/footer.jsp"></jsp:include>
-    <jsp:include page="layout/loader.jsp"></jsp:include>
-    <jsp:include page="layout/script.jsp"></jsp:include>
+    <jsp:include page="./layout/footer.jsp"></jsp:include>
+    <jsp:include page="./layout/loader.jsp"></jsp:include>
+    <jsp:include page="./layout/script.jsp"></jsp:include>
 </body>
 </html>

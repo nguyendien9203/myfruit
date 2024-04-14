@@ -15,9 +15,8 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "payment_method")
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
+    @Column(name = "payment_method", nullable = false)
+    private String paymentMethod;
 
     @Column(name = "order_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -43,8 +42,8 @@ public class Order implements Serializable {
         updatedAt = new Date();
     }
 
-    @OneToMany(mappedBy = "order", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<OrderItem> orderItems;
+    @OneToMany(mappedBy = "orders", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<OrderItem> orderItem;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
@@ -65,11 +64,11 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public PaymentMethod getPaymentMethod() {
+    public String getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
+    public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
@@ -113,12 +112,12 @@ public class Order implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
+    public Set<OrderItem> getOrderItem() {
+        return orderItem;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public void setOrderItem(Set<OrderItem> orderItem) {
+        this.orderItem = orderItem;
     }
 
     public User getUser() {

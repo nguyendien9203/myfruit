@@ -4,7 +4,7 @@
 
 <%
     session = request.getSession(false);
-    if (session == null || session.getAttribute("user") == null) {
+    if (session == null || session.getAttribute("admin") == null) {
         response.sendRedirect("login");
     }
 %>
@@ -45,6 +45,11 @@
                         <!-- start section -->
                         <div class="col-md-12 my-4">
                             <h2 class="h4 mb-1">Danh Mục</h2>
+
+
+
+
+
                             <div class="card shadow">
                                 <div class="card-body">
                                     <div class="toolbar row mb-3">
@@ -53,19 +58,85 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-auto">
                                                         <label for="search" class="sr-only">Search</label>
-                                                        <input type="text" class="form-control" id="search" value=""
-                                                               placeholder="Tìm kiếm">
+                                                        <input type="text" class="form-control" id="search" value="" placeholder="Tìm kiếm">
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
+
                                         <div class="col ml-auto">
                                             <div class="dropdown float-right">
-                                                <a class="btn btn-primary float-right ml-3" data-toggle="modal" data-target=".modal-right-ac" data-whatever="@mdo" href="addCategory">+ Thêm Danh Mục</a>
+                                                <a class="btn btn-primary float-right ml-3" data-toggle="modal" data-target=".modal-right-ac" data-whatever="@mdo" href="category">+ Thêm Danh Mục</a>
                                             </div>
-
                                         </div>
                                     </div>
+
+                                    <c:if test="${not empty errorEmpty}">
+                                            <div class="alert alert-danger" role="alert">
+                                                <span class="fe fe-help-circle fe-16 mr-2"></span> ${errorEmpty}
+                                            </div>
+                                    </c:if>
+
+                                    <c:if test="${not empty errorExist}">
+                                        <div class="alert alert-danger" role="alert">
+                                            <span class="fe fe-help-circle fe-16 mr-2"></span> ${errorExist}
+                                        </div>
+                                    </c:if>
+
+
+                                    <%
+                                        String add = request.getParameter("add");
+                                        if (add != null && add.equals("true")) {
+                                    %>
+                                    <div class="alert alert-success" role="alert">
+                                        <span class="fe fe-check-circle fe-16 mr-2"></span> Danh mục đã được thêm thành công
+                                    </div>
+                                    <%
+                                    } else if (add != null && add.equals("false")) {
+                                    %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <span class="fe fe-help-circle fe-16 mr-2"></span> Thêm danh mục không thành công
+                                    </div>
+                                    <%
+                                        }
+                                    %>
+
+
+                                    <%
+                                        String edit = request.getParameter("edit");
+                                        if (edit != null && edit.equals("true")) {
+                                    %>
+                                    <div class="alert alert-success" role="alert">
+                                        <span class="fe fe-alert-circle fe-16 mr-2"></span> Danh mục đã được cập nhật thành công
+                                    </div>
+                                    <%
+                                    } else if (edit != null && edit.equals("false")) {
+                                    %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <span class="fe fe-help-circle fe-16 mr-2"></span> Cập nhật danh mục không thành công
+                                    </div>
+                                    <%
+                                        }
+                                    %>
+
+
+                                    <%
+                                        String delete = request.getParameter("delete");
+                                        if (delete != null && delete.equals("true")) {
+                                    %>
+                                    <div class="alert alert-success" role="alert">
+                                        <span class="fe fe-alert-circle fe-16 mr-2"></span> Danh mục đã được xóa thành công
+                                    </div>
+                                    <%
+                                    } else if (delete != null && delete.equals("false")) {
+                                    %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <span class="fe fe-help-circle fe-16 mr-2"></span> Xóa danh mục không thành công
+                                    </div>
+                                    <%
+                                        }
+                                    %>
+
                                     <!-- table -->
                                     <table class="table table-hover table-borderless border-v">
                                         <thead>
@@ -76,24 +147,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${listCate}" var="cate">
-                                            <tr>
-                                                <td>${cate.name}</td>
-                                                <td>20000</td>
-                                                <td>
-                                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                        <span class="text-muted sr-only">Action</span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" data-toggle="modal" data-target=".modal-right-ec" data-whatever="@mdo" href="editCategory?id=${cate.id}">Sửa</a>
-                                                        <a class="dropdown-item" href="#">Xóa</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-
+                                            <c:forEach items="${listCate}" var="cate">
+                                                <tr>
+                                                    <td>${cate.name}</td>
+                                                    <td>20000</td>
+                                                    <td>
+                                                        <a class="btn mb-2 btn-secondary" href="editCategory?id=${cate.id}">Sửa</a>
+                                                        <a class="btn mb-2 btn-outline-dark" href="deleteCategory?id=${cate.id}">Xóa</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                     <nav aria-label="Table Paging" class="mb-0 text-muted">
@@ -124,13 +187,15 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="addCategory" method="post">
+                    <form action="category" method="post">
+                        <input type="hidden" name="action" value="add">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="recipient-name-ac" class="col-form-label">Danh Mục</label>
                                 <input type="text" class="form-control" id="recipient-name-ac" name="txt-category">
                             </div>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
                             <button type="submit" class="btn mb-2 btn-primary">Xác Nhận</button>
@@ -140,38 +205,6 @@
             </div>
         </div>
         <!-- end-add-category -->
-
-        <!-- edit-category -->
-
-            <div class="modal fade modal-right-ec modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabelEC" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="defaultModalLabelEC">Cập Nhật Danh Mục</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <form method="post" action="editCategory">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="recipient-name-ec" class="col-form-label">Danh Mục</label>
-                                    <div>CategoryId: ${categoryId}</div>
-
-                                    <input type="text" class="form-control" id="recipient-name-ec" value="${requestScope.category.name}" name="category">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn mb-2 btn-primary">Xác Nhận</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        <!-- end-edit-category -->
     </main> <!-- main -->
 </div> <!-- .wrapper -->
 <jsp:include page="layout/script.jsp"></jsp:include>

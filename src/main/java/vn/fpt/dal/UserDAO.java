@@ -15,7 +15,7 @@ import java.util.Set;
 public class UserDAO extends AbstractDAO<User, Long> {
     @Override
     public EntityManager entityManager() {
-        return JPAUtil.getEntityManagerFactory().createEntityManager();
+        return JPAUtil.getEntityManager();
     }
 
     private UserDAO(){

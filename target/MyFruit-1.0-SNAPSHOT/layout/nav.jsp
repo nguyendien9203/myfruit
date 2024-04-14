@@ -1,4 +1,6 @@
 <%@ page import="vn.fpt.entity.User" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
@@ -13,11 +15,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="product" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sản Phẩm</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="product.jsp">Tất Cả</a>
-                        <a class="dropdown-item" href="product.jsp">Trái Cây</a>
-                        <a class="dropdown-item" href="product.jsp">Rau</a>
-                        <a class="dropdown-item" href="product.jsp">Nước Ép</a>
-                        <a class="dropdown-item" href="product.jsp">Thực Phẩm Khô</a>
+                        <a class="dropdown-item" href="product">Tất Cả</a>
+                        <c:forEach items="${categories}" var="category">
+                            <a class="dropdown-item" href="product?categoryId=${category.id}">${category.name}</a>
+                        </c:forEach>
                     </div>
                 </li>
                 <li class="nav-item"><a href="about" class="nav-link">Về Chúng Tôi</a></li>
@@ -42,7 +43,15 @@
                 <%
                     }
                 %>
-                <li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                <li class="nav-item cta cta-colored"><a href="cart" class="nav-link">
+                    <span class="icon-shopping_cart">
+                     <c:choose>
+                        <c:when test="${not empty sessionScope.order and not empty sessionScope.order.orderItem}">
+                            [<c:out value="${sessionScope.order.orderItem.size()}"/>]
+                        </c:when>
+                        <c:otherwise>[0]</c:otherwise>
+                    </c:choose>
+                </li>
 
             </ul>
         </div>

@@ -11,8 +11,8 @@
         <div class="row mb-5">
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Fruitables</h2>
-                    <p>Thực phẩm sạch, tươi ngon từ vườn của bạn - Khám phá ngay Fruitables của chúng tôi!"</p>
+                    <h2 class="ftco-heading-2">MyFruit</h2>
+                    <p>Trái cây sạch, tươi ngon từ vườn của bạn - Khám phá ngay MyFruit của chúng tôi!"</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                         <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -24,9 +24,9 @@
                 <div class="ftco-footer-widget mb-4 ml-md-5">
                     <h2 class="ftco-heading-2">Menu</h2>
                     <ul class="list-unstyled">
-                        <li><a href="index.jsp" class="py-2 d-block">Trang Chủ</a></li>
-                        <li><a href="product.jsp" class="py-2 d-block">Sản Phẩm</a></li>
-                        <li><a href="about.jsp" class="py-2 d-block">Về Chúng Tôi</a></li>
+                        <li><a href="home" class="py-2 d-block">Trang Chủ</a></li>
+                        <li><a href="produc" class="py-2 d-block">Sản Phẩm</a></li>
+                        <li><a href="about" class="py-2 d-block">Về Chúng Tôi</a></li>
                     </ul>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                         <ul>
                             <li><span class="icon icon-map-marker"></span><span class="text">Khu Công nghệ cao Hòa Lạc – Km29 Đại lộ Thăng Long, Thạch Thất, TP. Hà Nội</span></li>
                             <li><a href="#"><span class="icon icon-phone"></span><span class="text">+84 388 888 102</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">fruitables@gmail.com</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">myfruit@gmail.com</span></a></li>
                         </ul>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
 
 <%
     session = request.getSession(false);
-    if (session == null || session.getAttribute("user") == null) {
+    if (session == null || session.getAttribute("admin") == null) {
         response.sendRedirect("login");
     }
 %>

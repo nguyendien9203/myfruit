@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>MyFruit - Đăng Nhập</title>
@@ -27,7 +28,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="goto-here">
-    <jsp:include page="layout/nav.jsp"></jsp:include>
+    <jsp:include page="./layout/nav.jsp"></jsp:include>
 
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
         <div class="container">
@@ -82,9 +83,9 @@
     </section>
 
 
-    <jsp:include page="layout/footer.jsp"></jsp:include>
-    <jsp:include page="layout/loader.jsp"></jsp:include>
-    <jsp:include page="layout/script.jsp"></jsp:include>
+    <jsp:include page="./layout/footer.jsp"></jsp:include>
+    <jsp:include page="./layout/loader.jsp"></jsp:include>
+    <jsp:include page="./layout/script.jsp"></jsp:include>
 </body>
 </html>
 

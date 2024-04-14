@@ -5,6 +5,8 @@ import vn.fpt.entity.Product;
 import vn.fpt.util.JPAUtil;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class ProductDAO extends AbstractDAO<Product, Long> {
 
@@ -18,6 +20,23 @@ public class ProductDAO extends AbstractDAO<Product, Long> {
     }
     @Override
     public EntityManager entityManager() {
-        return JPAUtil.getEntityManagerFactory().createEntityManager();
+        return JPAUtil.getEntityManager();
     }
+
+    public List<Product> getProductsByCategoryId(Long categoryId) {
+        String jpql = "SELECT p FROM Product p JOIN p.category c WHERE c.id = :categoryId";
+        TypedQuery<Product> query = entityManager().createQuery(jpql, Product.class);
+        query.setParameter("categoryId", categoryId);
+        return query.getResultList();
+    }
+
+    public List<Product> getProductsByKeyword(String keyword) {
+        String jpql = "SELECT p FROM Product p WHERE p.name LIKE :keyword OR p.desc LIKE :keyword";
+        TypedQuery<Product> query = entityManager().createQuery(jpql, Product.class);
+        query.setParameter("keyword", "%" + keyword + "%");
+        return query.getResultList();
+    }
+
+
+
 }

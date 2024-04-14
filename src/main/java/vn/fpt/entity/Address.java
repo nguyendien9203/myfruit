@@ -38,7 +38,7 @@ public class Address implements Serializable {
         updatedAt = new Date();
     }
 
-    @ManyToMany(mappedBy = "address", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<User> user;
 
     public Address() {

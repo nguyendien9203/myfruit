@@ -16,3 +16,40 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<script>
+    setTimeout(function(){
+        // Tìm tất cả các phần tử có class là 'alert-danger'
+        var alertDangerElements = document.querySelectorAll('.alert-danger');
+        var alertSuccessElements = document.querySelectorAll('.alert-success');
+
+        // Lặp qua từng phần tử và xóa nó đi
+        alertDangerElements.forEach(function(element) {
+            element.remove();
+        });
+
+        alertSuccessElements.forEach(function(element) {
+            element.remove();
+        });
+    }, 5000); // 5 giây
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var quantityInput = document.getElementById('quantity');
+        var plusButton = document.querySelector('.quantity-right-plus');
+        var minusButton = document.querySelector('.quantity-left-minus');
+
+        plusButton.addEventListener('click', function() {
+            var currentValue = parseInt(quantityInput.value);
+            if (!isNaN(currentValue)) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+
+        minusButton.addEventListener('click', function() {
+            var currentValue = parseInt(quantityInput.value);
+            if (!isNaN(currentValue) && currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+    });
+</script>

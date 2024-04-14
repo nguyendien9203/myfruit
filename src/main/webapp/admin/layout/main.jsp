@@ -1,4 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <main role="main" class="main-content">
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -15,8 +17,9 @@
                                     </div>
                                     <div class="col pr-0">
                                         <p class="small text-muted mb-0">Doanh Thu Hàng Tháng</p>
-                                        <span class="h3 mb-0">$1250</span>
-                                        <span class="small text-muted">+5.5%</span>
+                                        <span class="h3 mb-0">
+                                            <fmt:formatNumber value="${totalRevenueInMonth}" type="currency" currencySymbol="đ" pattern="###,###,###đ"/>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -34,8 +37,20 @@
                                     </div>
                                     <div class="col">
                                         <p class="small text-muted mb-0">Doanh Thu Hôm Nay</p>
-                                        <span class="h3 mb-0">$80</span>
-                                        <span class="small text-muted">+5.5%</span>
+                                        <span class="h3 mb-0">
+                                            <span class="h3 mb-0">
+                                                <c:choose>
+                                                    <c:when test="${totalRevenueToday == null}">
+                                                        0
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <fmt:formatNumber value="${totalRevenueToday}" type="currency" currencySymbol="đ" pattern="###,###,###đ"/>
+                                                    </c:otherwise>
+                                                </c:choose>
+
+
+                                            </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +68,10 @@
                                     </div>
                                     <div class="col pr-0">
                                         <p class="small text-muted mb-0">Đơn Hàng Hôm Nay</p>
-                                        <span class="h3 mb-0">20</span>
+                                        <span class="h3 mb-0">
+                                            ${ordersCountToday}
+
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -67,9 +85,10 @@
                     <!-- Recent orders -->
                     <div class="col-md-12">
                         <h6 class="mb-3">Đơn Hàng Gần Nhất</h6>
+                        <!-- table -->
                         <table class="table table-hover table-borderless border-v">
                             <thead>
-                            <tr role="row">
+                            <tr>
                                 <th>Mã Đơn Hàng</th>
                                 <th>Ngày Mua</th>
                                 <th>Người Mua</th>
@@ -82,30 +101,57 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <td>#1331</td>
-                            <td>2020-12-26 01:32:21</td>
-                            <td>Kasimir Lindsey</td>
-                            <td>(697) 486-2101</td>
-                            <td>996-3523 Et Ave</td>
-                            <td>$3.64</td>
-                            <td>Chuyển khoản</td>
-                            <td>Chờ xử lý</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-sm dropdown-toggle more-vertical"
-                                            type="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <span class="text-muted sr-only">Action</span>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="viewOrder.jsp">Chi Tiết</a>
-                                        <a class="dropdown-item" data-toggle="modal"
-                                           data-target="#varyModal" data-whatever="@mdo"
-                                           href="#">Sửa</a>
-                                        <a class="dropdown-item" href="#">Xóa</a>
-                                    </div>
-                                </div>
-                            </td>
+                            <c:forEach items="${orders}" var="order">
+                                <tr>
+                                    <td>#${order.id}</td>
+                                    <td><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                    <td>${order.address.fullName}</td>
+                                    <td>${order.address.phone}</td>
+                                    <td>${order.address.address}</td>
+                                    <td><fmt:formatNumber value="${order.orderTotal}" type="currency" currencySymbol="đ" pattern="###,###,###đ"/></td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${order.paymentMethod == 'cod'}">
+                                                Tiền mặt
+                                            </c:when>
+                                            <c:when test="${order.paymentMethod == 'banking'}">
+                                                Chuyển khoản
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${order.paymentMethod}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${order.status == 'PROCESSING'}">
+                                                Chờ xử lý
+                                            </c:when>
+                                            <c:when test="${order.status == 'CONFIRMED'}">
+                                                <span style="color: green">Đã xác nhận</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${order.status}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm dropdown-toggle more-vertical"
+                                                    type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <span class="text-muted sr-only">Action</span>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="viewOrder?orderId=${order.id}">Chi Tiết</a>
+                                                <a class="dropdown-item edit-order" href="updateOrder?orderId=${order.id}" data-toggle="modal" data-target="#varyModal">Sửa</a>
+
+                                                <a class="dropdown-item" href="deleteOrder?orderId=${order.id}">Xóa</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div> <!-- / .col-md-3 -->
@@ -124,23 +170,35 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form method="post" action="updateOrder">
+                    <div class="modal-body">
                         <div class="form-group">
                             <label class="col-form-label">Trạng Thái</label>
-                            <select class="form-control">
-                                <option>Chờ xử lý</option>
-                                <option>Đang xử lý</option>
-                                <option>Đã giao hàng</option>
+                            <input type="hidden" id="orderId" name="orderId" value="">
+
+                            <select class="form-control" name="orderStatus">
+                                <c:forEach items="${orderStatusesList}" var="orderStatus">
+                                    <c:choose>
+                                        <c:when test="${orderStatus == 'PROCESSING'}">
+                                            <option value="${orderStatus}">Chờ xử lý</option>
+                                        </c:when>
+                                        <c:when test="${orderStatus == 'CONFIRMED'}">
+                                            <option value="${orderStatus}">Đã xác nhận</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option>${orderStatus}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
                             </select>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng
-                    </button>
-                    <button type="button" class="btn mb-2 btn-primary">Xác Nhận</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng
+                        </button>
+                        <button type="submit" class="btn mb-2 btn-primary">Xác Nhận</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

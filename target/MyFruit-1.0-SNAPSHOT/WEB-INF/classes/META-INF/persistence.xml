@@ -13,9 +13,6 @@
         <class>vn.fpt.entity.Order</class>
         <class>vn.fpt.entity.OrderItem</class>
         <class>vn.fpt.entity.Product</class>
-        <class>vn.fpt.entity.Unit</class>
-        <class>vn.fpt.entity.Variation</class>
-        <class>vn.fpt.entity.VariationOption</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update" />
@@ -23,7 +20,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="abcd12345"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/myfruit?useSSL=false&amp;useUnicode=yes&amp;allowPublicKeyRetrieval=true&amp;characterEncoding=UTF-8"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/myfruit?useSSL=false&amp;useUnicode=yes&amp;characterEncoding=UTF-8"/>
             <property name="hibernate.max_fetch_depth" value="3"/>
         </properties>
     </persistence-unit>

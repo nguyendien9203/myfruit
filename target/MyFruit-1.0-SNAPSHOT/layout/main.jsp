@@ -9,7 +9,7 @@
                     </div>
                     <div class="media-body">
                         <h3 class="heading">Miễn Phí Vận Chuyển</h3>
-                        <span>Miễn phí vận chuyển mọi đơn hàng</span>
+                        <span>Đơn hàng trên 500K</span>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                         <span class="flaticon-diet"></span>
                     </div>
                     <div class="media-body">
-                        <h3 class="heading">Thực Phẩm Tươi</h3>
+                        <h3 class="heading">Trái Cây Tươi</h3>
                         <span>Đóng gói sản phẩm cẩn thận</span>
                     </div>
                 </div>

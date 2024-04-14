@@ -3,7 +3,7 @@
 
 <%
     session = request.getSession(false);
-    if (session == null || session.getAttribute("user") == null) {
+    if (session == null || session.getAttribute("admin") == null) {
         response.sendRedirect("login");
     }
 %>
@@ -40,12 +40,23 @@
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <h2 class="h4 mb-1">Thêm Sản Phẩm</h2>
-                        <form method="post" action="addProduct">
+                        <form method="post" action="addProduct" enctype="multipart/form-data">
                             <div>
                                 <a class="btn btn-primary mb-4" href="product"><span
                                         class="fe fe-16 fe-arrow-left"></span> Quay Lại </a>
                                 <button class="btn btn-primary mb-4 float-right" type="submit">Cập Nhật</button>
                             </div>
+
+                            <div class="errors">
+                                <c:if test="${not empty errors}">
+                                    <ul>
+                                        <c:forEach items="${errors}" var="error">
+                                            <li style="color: red">${error}</li>
+                                        </c:forEach>
+                                    </ul>
+                                </c:if>
+                            </div>
+
 
                             <div class="row">
                                 <div class="col-md-8 mb-4">
@@ -54,21 +65,11 @@
                                             <h5 class="mb-4"><strong>Thông Tin Sản Phẩm</strong></h5>
                                             <div class="form-group mb-3">
                                                 <label for="product-name">Tên Sản Phẩm</label>
-                                                <input type="text" id="product-name" class="form-control" name="name">
+                                                <input type="text" id="product-name"  class="form-control" name="name">
                                             </div>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label>SKU</label>
-                                                    <input type="text" id="sku" class="form-control" name="sku">
-                                                </div> <!-- form-group -->
-                                                <div class="form-group col-md-6">
-                                                    <label for="product-status">Trạng Thái</label>
-                                                    <select class="form-control" id="product-status" name="status">
-                                                        <c:forEach items="${listStatus}" var="status">
-                                                            <option value="${status}">${status}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div> <!-- form-group -->
+                                            <div class="form-group mb-3">
+                                                <label>SKU</label>
+                                                <input type="text" id="sku" class="form-control" name="sku">
                                             </div> <!-- form-row -->
                                             <div class="form-group mb-3">
                                                 <label for="brand">Thương Hiệu</label>
@@ -84,55 +85,20 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label>Ảnh Sản Phẩm</label>
-                                                <input type="file" name="image" class="form-control">
-                                                <div id="image-preview" class="mb-3"></div>
-                                            </div>
-                                        </div> <!-- /.card-body -->
-                                    </div> <!-- /.card -->
-
-
-
-                                    <!-- Variants -->
-                                    <div class="card shadow mb-4">
-                                        <div class="card-body">
-                                            <h5 class="mb-4"><strong>Biến Thể</strong></h5>
-                                            <div id="form-container">
-                                                <div class="form-row" data-repeater-item>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label class="form-label">
-                                                            <span>Biến Thể</span>
-                                                        </label>
-                                                        <select class="form-control select2" name="variation">
-                                                            <c:forEach items="${listVariation}" var="variation">
-                                                                <option selected value="${variation.id}">${variation.name}</option>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-7">
-                                                        <label>Giá Trị</label>
-                                                        <input type="text" class="form-control" placeholder="Nhập giá trị" name="variation_option">
-                                                    </div>
-                                                    <div class="form-group col-md-1">
-                                                        <button class="fe fe-16 fe-x remove-button"
-                                                                id="remove-form-row"></button>
-                                                    </div>
+                                                <input type="file" id="imageInput" name="image" class="form-control">
+                                                <div id="image-preview" class="mt-3">
+                                                    <img src="" id="preview" style="max-width: 200px; max-height: 200px;">
                                                 </div>
                                             </div>
-
-                                            <button class="btn btn-primary" id="add-form-row">Thêm Lựa Chọn Khác</button>
-                                            <a class="btn ml-3 btn-outline-primary" data-toggle="modal"
-                                               data-target="#varyModalAB" data-whatever="@mdo" href="variation">Thêm Biến Thể</a>
                                         </div> <!-- /.card-body -->
                                     </div> <!-- /.card -->
-                                    <!-- /Variants -->
 
                                 </div> <!-- /.col -->
 
                                 <div class="col-md-4 mb-4">
                                     <div class="card shadow mb-4">
                                         <div class="card-body">
-                                            <h5 class="mb-4"><strong>Định Giá</strong></h5>
+                                            <h5 class="mb-4"><strong>Giá Sản Phẩm</strong></h5>
                                             <div class="form-group mb-3">
                                                 <label>Giá Gốc</label>
                                                 <input type="number" class="form-control" name="price">
@@ -141,31 +107,19 @@
                                                 <label>Giảm Giá</label>
                                                 <input type="number" class="form-control" name="discount">
                                             </div>
-                                            <div class="form-group mb-3">
-                                                <label class="form-label mb-1 d-flex justify-content-between align-items-center">
-                                                    <span>Đơn Vị</span>
-                                                    <a class="btn btn-link" data-toggle="modal" data-target="#varyModalAD"
-                                                       data-whatever="@mdo" href="unit">Thêm Đơn Vị</a>
-                                                </label>
-                                                <select class="form-control select2" name="unit">
-                                                    <c:forEach items="${listUnit}" var="unit">
-                                                        <option selected value="${unit.id}">${unit.name}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
                                         </div> <!-- /.card-body -->
                                     </div> <!-- /.card -->
 
                                     <div class="card shadow mb-4">
                                         <div class="card-body">
-                                            <h5 class="mb-4"><strong>Tổ Chức</strong></h5>
+                                            <h5 class="mb-4"><strong>Danh Mục</strong></h5>
                                             <div class="form-group mb-3">
                                                 <label class="form-label mb-1 d-flex justify-content-between align-items-center">
                                                     <span>Danh Mục</span>
                                                 </label>
-                                                <select class="form-control select2" name="category">
+                                                <select class="form-control select2-multi" id="multi-select2" name="category" multiple>
                                                     <c:forEach items="${listCate}" var="cate">
-                                                        <option selected value="${cate.id}">${cate.name}</option>
+                                                        <option value="${cate.id}">${cate.name}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -178,100 +132,34 @@
                     </div> <!-- .col-12 -->
                 </div> <!-- .row -->
             </div> <!-- .container-fluid -->
-
-
-            <!-- add-unit -->
-            <div class="modal fade" id="varyModalAD" tabindex="-1" role="dialog" aria-labelledby="varyModalLabelAD"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="varyModalLabelAD">Thêm Đơn Vị</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="unit" method="post">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="recipient-name-ad" class="col-form-label">Đơn Vị</label>
-                                    <input type="text" class="form-control" id="recipient-name-ad" name="txt-unit">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn mb-2 btn-primary">Xác Nhận</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- end-add-unit -->
-
-            <!-- add-variation-category -->
-            <div class="modal fade" id="varyModalAB" tabindex="-1" role="dialog" aria-labelledby="varyModalLabelAB"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="varyModalLabelAB">Thêm Biến Thể</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="variation" method="post">
-                            <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="recipient-name-ab" class="col-form-label">Biến Thể</label>
-                                        <input type="text" class="form-control" id="recipient-name-ab" name="txt-variation">
-                                    </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn mb-2 btn-primary">Xác Nhận</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- end-add-variation-category -->
         </main> <!-- main -->
     </div> <!-- .wrapper -->
     <jsp:include page="layout/script.jsp"></jsp:include>
-
     <script>
-        function previewImage() {
-            document.getElementById('image-upload').addEventListener('change', function() {
-                var file = this.files[0];
-                if (file) {
+        $(document).ready(function() {
+
+            // Hàm để cập nhật preview ảnh
+            function updateImagePreview(input) {
+
+                if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
-                        var image = document.createElement('img');
-                        image.src = e.target.result;
-                        image.style.maxWidth = '100%';
-                        image.style.height = 'auto';
-                        document.getElementById('image-preview').innerHTML = '';
-                        document.getElementById('image-preview').appendChild(image);
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    document.getElementById('image-preview').innerHTML = '';
+                        $("#preview").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
                 }
-            });
-        }
+            }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            previewImage();
+            // Xử lý sự kiện khi thay đổi ảnh
+            $("#imageInput").change(function() {
+                updateImagePreview(this);
+            });
+
+            // Cập nhật preview ảnh khi trang web được tải
+            updateImagePreview($("#imageInput")[0]);
         });
     </script>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'link image code',
-            toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | image | code'  // Các nút toolbar bạn muốn hiển thị
-        });
-    </script>
+
     </body>
 </html>
 

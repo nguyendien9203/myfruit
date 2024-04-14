@@ -7,9 +7,9 @@
                 <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
                     <div class="col-md-12 ftco-animate text-center">
-                        <h1 class="mb-2">Chúng tôi phục vụ rau & trái cây tươi</h1>
-                        <h2 class="subheading mb-4">Cung cấp rau và trái cây hưu cơ</h2>
-                        <p><a href="product.jsp" class="btn btn-primary">Xem Chi Tiết</a></p>
+                        <h1 class="mb-2">Chúng tôi phục vụ trái cây tươi</h1>
+                        <h2 class="subheading mb-4">Cung cấp trái cây hưu cơ</h2>
+                        <p><a href="product" class="btn btn-primary">Xem Chi Tiết</a></p>
                     </div>
 
                 </div>
@@ -22,9 +22,9 @@
                 <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
                     <div class="col-sm-12 ftco-animate text-center">
-                        <h1 class="mb-2">100% Thực phẩm tươi & hữu cơ</h1>
-                        <h2 class="subheading mb-4">Cung cấp rau và trái cây hưu cơ</h2>
-                        <p><a href="product.jsp" class="btn btn-primary">Xem Chi Tiết</a></p
+                        <h1 class="mb-2">100% trái cây tươi & hữu cơ</h1>
+                        <h2 class="subheading mb-4">Cung cấp trái cây hưu cơ</h2>
+                        <p><a href="product" class="btn btn-primary">Xem Chi Tiết</a></p>
                     </div>
 
                 </div>

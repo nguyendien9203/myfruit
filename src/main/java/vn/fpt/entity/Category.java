@@ -1,11 +1,14 @@
 package vn.fpt.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 @Entity
-@Table(name = "categories")
+@Table(name = "category")
 public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +31,9 @@ public class Category implements Serializable {
     protected void onUpdate() {
         updatedAt = new Date();
     }
-    @ManyToMany(mappedBy = "categories", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<Product> products;
+    @ManyToMany(mappedBy = "category", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<Product> product;
 
-    @OneToMany(mappedBy = "category", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<Variation> variations;
 
     public Category() {
     }
@@ -69,19 +70,12 @@ public class Category implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Set<Product> getProduct() {
+        return product;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setProduct(Set<Product> product) {
+        this.product = product;
     }
 
-    public Set<Variation> getVariations() {
-        return variations;
-    }
-
-    public void setVariations(Set<Variation> variations) {
-        this.variations = variations;
-    }
 }

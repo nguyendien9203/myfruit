@@ -11,6 +11,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/updateProduct.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/viewOrder.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/layout/footer.jsp" value="file://$PROJECT_DIR$/src/main/webapp/layout" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/layout/slider.jsp" value="file://$PROJECT_DIR$/src/main/webapp/layout" />
       </map>
     </option>
   </component>

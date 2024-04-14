@@ -24,4 +24,6 @@ public class AdminProductServlet extends HttpServlet {
         req.setAttribute("listProduct", listProduct);
         req.getRequestDispatcher("product.jsp").forward(req, resp);
     }
+
+
 }

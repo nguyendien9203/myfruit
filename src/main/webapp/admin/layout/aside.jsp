@@ -6,13 +6,13 @@
     <nav class="vertnav navbar navbar-light">
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.jsp">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="home">
                 Admin
             </a>
         </div>
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item w-100">
-                <a class="nav-link" href="index.jsp">
+                <a class="nav-link" href="home">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">Bảng Điều Khiển</span>
                 </a>
@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li class="nav-item w-100">
-                <a class="nav-link" href="order.jsp">
+                <a class="nav-link" href="order">
                     <i class="fe fe-truck fe-16"></i>
                     <span class="ml-3 item-text">Đơn Hàng</span>
                 </a>

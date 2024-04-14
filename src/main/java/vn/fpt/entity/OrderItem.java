@@ -5,12 +5,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 @Entity
-@Table(name = "order_items")
+@Table(name = "order_item")
 public class OrderItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private float qty;
+    private long qty;
     private BigDecimal price;
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,9 +30,9 @@ public class OrderItem implements Serializable {
     }
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "order_id")
-    private Order order;
+    private Order orders;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -47,11 +47,11 @@ public class OrderItem implements Serializable {
         this.id = id;
     }
 
-    public float getQty() {
+    public long getQty() {
         return qty;
     }
 
-    public void setQty(float qty) {
+    public void setQty(long qty) {
         this.qty = qty;
     }
 
@@ -79,12 +79,12 @@ public class OrderItem implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Order getOrder() {
-        return order;
+    public Order getOrders() {
+        return orders;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrders(Order orders) {
+        this.orders = orders;
     }
 
     public Product getProduct() {

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>MyFruit - Trang Chủ</title>
@@ -27,11 +28,11 @@
 
 </head>
 <body class="goto-here">
-    <jsp:include page="layout/nav.jsp"></jsp:include>
-    <jsp:include page="layout/slider.jsp"></jsp:include>
-    <jsp:include page="layout/main.jsp"></jsp:include>
-    <jsp:include page="layout/footer.jsp"></jsp:include>
-    <jsp:include page="layout/loader.jsp"></jsp:include>
-    <jsp:include page="layout/script.jsp"></jsp:include>
+    <jsp:include page="./layout/nav.jsp"></jsp:include>
+    <jsp:include page="./layout/slider.jsp"></jsp:include>
+    <jsp:include page="./layout/main.jsp"></jsp:include>
+    <jsp:include page="./layout/footer.jsp"></jsp:include>
+    <jsp:include page="./layout/loader.jsp"></jsp:include>
+    <jsp:include page="./layout/script.jsp"></jsp:include>
 </body>
 </html>

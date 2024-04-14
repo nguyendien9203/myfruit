@@ -12,7 +12,7 @@ import java.util.List;
 public class RoleDAO extends AbstractDAO<Role, Long> {
     @Override
     public EntityManager entityManager() {
-        return JPAUtil.getEntityManagerFactory().createEntityManager();
+        return JPAUtil.getEntityManager();
     }
 
     private RoleDAO() {

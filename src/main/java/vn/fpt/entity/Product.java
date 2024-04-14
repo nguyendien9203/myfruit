@@ -1,5 +1,7 @@
 package vn.fpt.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import vn.fpt.constant.ProductStatus;
 
 import javax.persistence.*;
@@ -9,33 +11,26 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
-    @Column(name = "sku", nullable = false, length = 100)
-
+    @Column(name = "SKU", nullable = false, length = 100)
     private String SKU;
     @Column(name = "qty_in_stock", nullable = false)
-
-    private BigDecimal qtyInStock;
+    private long qtyInStock;
     @Column(name = "price", nullable = false)
-
     private BigDecimal price;
     @Column(name = "discount")
-
     private BigDecimal discount;
     @Column(name = "brand", length = 100, nullable = false)
-
     private String brand;
-    @Column(name = "image", length = 500, nullable = false)
-
+    @Column(name = "image", length = 255, nullable = false)
     private String image;
     @Column(name = "description", length = 500, nullable = false)
-
     private String desc;
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
@@ -55,20 +50,12 @@ public class Product implements Serializable {
     protected void onUpdate() {
         updatedAt = new Date();
     }
-    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<Unit> units;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id")
     )
-    private Set<Category> categories;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "product_configuration",
-            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "variation_option_id", referencedColumnName = "id")
-    )
-    private Set<VariationOption> variationOptions;
+    private Set<Category> category;
 
     public Product() {
     }
@@ -97,11 +84,11 @@ public class Product implements Serializable {
         this.SKU = SKU;
     }
 
-    public BigDecimal getQtyInStock() {
+    public long getQtyInStock() {
         return qtyInStock;
     }
 
-    public void setQtyInStock(BigDecimal qtyInStock) {
+    public void setQtyInStock(long qtyInStock) {
         this.qtyInStock = qtyInStock;
     }
 
@@ -169,27 +156,11 @@ public class Product implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Set<Unit> getUnits() {
-        return units;
+    public Set<Category> getCategory() {
+        return category;
     }
 
-    public void setUnits(Set<Unit> units) {
-        this.units = units;
-    }
-
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
-
-    public Set<VariationOption> getVariationOptions() {
-        return variationOptions;
-    }
-
-    public void setVariationOptions(Set<VariationOption> variationOptions) {
-        this.variationOptions = variationOptions;
+    public void setCategory(Set<Category> category) {
+        this.category = category;
     }
 }

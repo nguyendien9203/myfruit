@@ -6,8 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.fpt.constant.Status;
+import vn.fpt.dal.CategoryDAO;
 import vn.fpt.dal.RoleDAO;
 import vn.fpt.dal.UserDAO;
+import vn.fpt.entity.Category;
 import vn.fpt.entity.Role;
 import vn.fpt.entity.User;
 import vn.fpt.util.MD5Util;
@@ -15,6 +17,7 @@ import vn.fpt.util.MD5Util;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @WebServlet(name = "UserRegisterServlet", urlPatterns = {"/register"})
@@ -22,9 +25,13 @@ public class UserRegisterServlet extends HttpServlet {
     private UserDAO userDAO = UserDAO.getInstance();
     private RoleDAO roleDAO = RoleDAO.getInstance();
 
+    private CategoryDAO categoryDAO = CategoryDAO.getInstance();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Category> categories = categoryDAO.findAll();
+        request.setAttribute("categories", categories);
         request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 
@@ -54,7 +61,7 @@ public class UserRegisterServlet extends HttpServlet {
         user.setUsername(username);
         user.setPassword(hashedPassword);
         user.setStatus(Status.ACTIVE);
-        userDAO.save(user);
+        userDAO.insert(user);
         Role userRole = roleDAO.findByRoleName("user");
 
 

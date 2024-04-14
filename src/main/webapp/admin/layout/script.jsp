@@ -250,3 +250,20 @@
   gtag('js', new Date());
   gtag('config', 'UA-56159088-1');
 </script>
+
+<script>
+    setTimeout(function(){
+        // Tìm tất cả các phần tử có class là 'alert-danger'
+        var alertDangerElements = document.querySelectorAll('.alert-danger');
+        var alertSuccessElements = document.querySelectorAll('.alert-success');
+
+        // Lặp qua từng phần tử và xóa nó đi
+        alertDangerElements.forEach(function(element) {
+            element.remove();
+        });
+
+        alertSuccessElements.forEach(function(element) {
+            element.remove();
+        });
+    }, 5000); // 5 giây
+</script>
